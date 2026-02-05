@@ -1,37 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import { 
-  ShoppingCart, 
-  Plus, 
-  Minus, 
-  Trash2, 
-  User, 
-  BarChart3, 
-  Package, 
+import {
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2,
+  User,
+  BarChart3,
+  Package,
   ChefHat,
   CheckCircle,
   Clock,
   X,
   Edit,
-  Save,
   Sparkles,
   TrendingUp,
   Award,
-  Star,
   Filter,
   Search,
-  Eye,
-  Calendar,
   DollarSign,
-  Users,
   Target,
-  AlertCircle,
-  Settings,
-  Download,
   RefreshCw,
-  Zap,
   Heart,
-  Flame,
   Sun,
   Crown,
   Gift,
@@ -40,11 +30,8 @@ import {
   IceCream,
   Waves,
   Palmtree,
-  Sunset,
   Flower2,
   Cherry,
-  Apple,
-  Menu,
   Printer,
   Wifi,
   WifiOff
@@ -80,7 +67,6 @@ function App() {
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [notificaciones, setNotificaciones] = useState([]);
-  const [menuMovilAbierto, setMenuMovilAbierto] = useState(false);
   const [socketConectado, setSocketConectado] = useState(false);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [ticketParaImprimir, setTicketParaImprimir] = useState(null);
@@ -555,11 +541,6 @@ function App() {
     return colores[categoria] || 'from-pink-400 via-orange-400 to-yellow-500';
   };
 
-  const obtenerToppingsPermitidos = (categoria) => {
-    const categoriasConToppings = ['Crepas', 'Hot Cakes', 'Mini Donas', 'Waffles', 'Biónicos'];
-    return categoriasConToppings.includes(categoria);
-  };
-
   // Filtrado mejorado - CORRIGIENDO DEFINITIVAMENTE
   const productosFiltrados = productos.filter(producto => {
     // Mostrar SOLO productos activos (activo = 1 o activo = true)
@@ -790,23 +771,6 @@ function App() {
     }
   };
 
-  const eliminarProducto = async (id) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este producto?')) {
-      try {
-        const response = await fetch(`${API_BASE_URL}/productos/${id}`, {
-          method: 'DELETE',
-        });
-
-        if (response.ok) {
-          mostrarNotificacion('Producto eliminado exitosamente', 'success');
-          cargarProductos(true);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        mostrarNotificacion('Error al eliminar producto', 'error');
-      }
-    }
-  };
 
   // Componente Loading Screen
   const LoadingScreen = () => (
