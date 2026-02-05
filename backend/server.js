@@ -633,6 +633,22 @@ app.delete('/api/reset-ventas', (req, res) => {
   });
 });
 
+// Versión GET para acceder desde navegador
+app.get('/api/reset-ventas', (req, res) => {
+  db.serialize(() => {
+    db.run("DELETE FROM venta_items");
+    db.run("DELETE FROM pedidos_cocina");
+    db.run("DELETE FROM ventas", function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      console.log('🗑️ Ventas y pedidos eliminados');
+      res.json({ message: 'Ventas y pedidos eliminados exitosamente', nota: 'Base de datos limpia - solo quedaron los productos' });
+    });
+  });
+});
+
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
