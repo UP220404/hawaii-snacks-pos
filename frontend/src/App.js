@@ -50,7 +50,7 @@ import {
   WifiOff
 } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 function App() {
   // Leer vista inicial de URL (ej: ?vista=cocina)
