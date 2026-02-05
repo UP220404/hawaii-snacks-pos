@@ -617,6 +617,22 @@ app.get('/api/estadisticas', (req, res) => {
   });
 });
 
+// Limpiar ventas y pedidos (mantiene productos)
+app.delete('/api/reset-ventas', (req, res) => {
+  db.serialize(() => {
+    db.run("DELETE FROM venta_items");
+    db.run("DELETE FROM pedidos_cocina");
+    db.run("DELETE FROM ventas", function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      console.log('🗑️ Ventas y pedidos eliminados');
+      res.json({ message: 'Ventas y pedidos eliminados exitosamente' });
+    });
+  });
+});
+
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
